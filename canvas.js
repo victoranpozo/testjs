@@ -1,5 +1,6 @@
 var lienzo 	= document.getElementById("dibujito");
 var contexto	= lienzo.getContext("2d");
+
 var texto 	= document.getElementById("textLines");
 var botonDibujar = document.getElementById("buttonDraw");
 var botonBorrar = document.getElementById("buttonClear");
@@ -15,11 +16,11 @@ var posX;
 var posY;
 var boolMouseDraw;
 
-document.addEventListener("mousedown", fncMouseClick);
-document,addEventListener("mousemove", fncMouseMove);
-document.addEventListener("mouseup", fncMouseEnd);
-
+document.addEventListener("pointerdown", fncMouseClick);
+document,addEventListener("pointermove", fncMouseMove);
+document.addEventListener("pointerup", fncMouseEnd);
 document.addEventListener("keyup", fncTeclado);
+
 botonDibujar.addEventListener("click", fncDibujar);
 botonBorrar.addEventListener("click", fncBorrar);
 
@@ -27,17 +28,17 @@ function	fncMouseClick(fncEvent)
 {
 	boolMouseDraw = true;
 
-	posX = fncEvent.layerX;
-	posY = fncEvent.layerY;
+	posX = fncEvent.offsetX;
+	posY = fncEvent.offsetY;
 }
 
 function	fncMouseMove(fncEvent)
 {
 	if(boolMouseDraw == true)
 	{
-		drawLine("pink",posX, posY, fncEvent.layerX, fncEvent.layerY);
-		posX = fncEvent.layerX;
-		posY = fncEvent.layerY;
+		drawLine("pink",posX, posY, fncEvent.offsetX, fncEvent.offsetY);
+		posX = fncEvent.offsetX;
+		posY = fncEvent.offsetY;
 	}
 }
 
@@ -98,11 +99,8 @@ function	fncDibujar()
 	fncBorrar();
 	for(cnt = 0; cnt <= maxIt; cnt++)
 	{
-		//y0 = y0 + step*cnt;
-		//x1 = x1 + step*cnt;
-		//drawLine(color,x0,y0,x1,y1);
-		drawLine("red",0,cnt*step,cnt*step,300);
-		drawLine("blue",cnt*step,0,300,cnt*step);
+		drawLine("red", 0, cnt*step, cnt*step, 300);
+		drawLine("blue", cnt*step, 0, 300, cnt*step);
 	}
 
 	// Dibujo de caja
